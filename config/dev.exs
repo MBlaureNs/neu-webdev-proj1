@@ -51,8 +51,8 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :rowgame, Rowgame.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: "rowgame",
+  password: "Aiz2onga4eeH",
   database: "rowgame_dev",
   hostname: "localhost",
   pool_size: 10
