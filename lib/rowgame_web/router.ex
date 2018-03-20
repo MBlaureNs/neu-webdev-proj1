@@ -10,7 +10,7 @@ defmodule RowgameWeb.Router do
   end
 
   pipeline :api do
-    plug :accepts, ["json"]
+    plug :accepts, ["json"]    
   end
 
   scope "/", RowgameWeb do
@@ -21,8 +21,8 @@ defmodule RowgameWeb.Router do
     resources "/games", GameController
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", RowgameWeb do
-  #   pipe_through :api
-  # end
+  scope "/api/v1", RowgameWeb do
+    pipe_through :api
+    resources "/moves", MoveController, except: [:new, :edit]
+  end
 end
