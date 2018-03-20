@@ -9,7 +9,7 @@ defmodule Rowgame.Lobby.Game do
     field :is_finished, :boolean, default: false, null: false
     field :is_started, :boolean, default: false, null: false
     field :win_length, :integer, null: false
-    belongs_to :host, Rowgame.Accounts.User, null: false
+    belongs_to :host, Rowgame.Accounts.User
     belongs_to :client, Rowgame.Accounts.User
     belongs_to :winner, Rowgame.Accounts.User
 
