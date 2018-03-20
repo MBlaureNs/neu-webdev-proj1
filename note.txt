@@ -1,0 +1,39 @@
+as per /config/dev.exs, postgres dev db info:
+username: "rowgame"
+password: "Aiz2onga4eeH"
+database: "rowgame_dev"
+
+setup:
+$ sudo su - postgres
+postgres$ createuser -d -P microblog
+password: Aiz2onga4eeH
+postgres$ exit
+
+-----
+
+data definitions:
+user - represents a user
+  username (unique) - unique username identifier
+
+game - represents a game between two players
+  host -> user       - user who created the game
+  client -> user     - user who joined the game
+  host_first (bool)  - is the host taking the first turn?
+  board_size (int)   - number of tiles wide for board
+  win_length (int)   - number of pieces in a row to win
+  cur_turn (int)     - current turn
+  is_started (bool)  - has the game started?
+  is_finished (bool) - has the game finished?
+  winner -> user     - user who won the game (null if tie or in progress)
+
+move - represents a placement of a piece on the board
+  game -> game - game this move belongs to
+  turn (int)   - turn of the game this move represents
+  x_pos (int)  - x position on board of this move
+  y_pos (int)  - y position on board of this move
+
+chat - represents a chat message
+  game -> game   - game this message belongs to
+  time (time)    - time stamp of this message
+  user -> user   - user who sent this message
+  message (text) - content of the message
