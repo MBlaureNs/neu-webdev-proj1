@@ -7,6 +7,8 @@ defmodule RowgameWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+
+    resources "/users", UserController
   end
 
   pipeline :api do
