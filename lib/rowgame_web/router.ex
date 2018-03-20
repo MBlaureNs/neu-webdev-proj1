@@ -9,6 +9,7 @@ defmodule RowgameWeb.Router do
     plug :put_secure_browser_headers
 
     resources "/users", UserController
+    resources "/games", GameController
   end
 
   pipeline :api do

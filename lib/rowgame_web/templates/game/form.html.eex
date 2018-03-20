@@ -1,0 +1,41 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= label f, :board_size, class: "control-label" %>
+    <%= number_input f, :board_size, class: "form-control" %>
+    <%= error_tag f, :board_size %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :win_length, class: "control-label" %>
+    <%= number_input f, :win_length, class: "form-control" %>
+    <%= error_tag f, :win_length %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :cur_turn, class: "control-label" %>
+    <%= number_input f, :cur_turn, class: "form-control" %>
+    <%= error_tag f, :cur_turn %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :is_started, class: "control-label" %>
+    <%= checkbox f, :is_started, class: "checkbox" %>
+    <%= error_tag f, :is_started %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :is_finished, class: "control-label" %>
+    <%= checkbox f, :is_finished, class: "checkbox" %>
+    <%= error_tag f, :is_finished %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>

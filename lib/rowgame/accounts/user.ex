@@ -5,7 +5,9 @@ defmodule Rowgame.Accounts.User do
 
   schema "users" do
     field :username, :string
-
+    has_many :hosted_game, Rowgame.Lobby.Game, foreign_key: :host_id
+    has_many :joined_game, Rowgame.Lobby.Game, foreign_key: :client_id
+    
     timestamps()
   end
 
