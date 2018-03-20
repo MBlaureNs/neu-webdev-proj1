@@ -13,6 +13,7 @@ defmodule Rowgame.Lobby.Game do
     belongs_to :client, Rowgame.Accounts.User
     belongs_to :winner, Rowgame.Accounts.User
     has_many :move, Rowgame.Lobby.Move, foreign_key: :game_id
+    has_many :chat, Rowgame.Lobby.Chat, foreign_key: :game_id
 
     timestamps()
   end

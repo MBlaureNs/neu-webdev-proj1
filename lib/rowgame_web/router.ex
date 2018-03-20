@@ -24,5 +24,6 @@ defmodule RowgameWeb.Router do
   scope "/api/v1", RowgameWeb do
     pipe_through :api
     resources "/moves", MoveController, except: [:new, :edit]
+    resources "/chats", ChatController, except: [:new, :edit]
   end
 end

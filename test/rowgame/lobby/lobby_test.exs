@@ -134,4 +134,66 @@ defmodule Rowgame.LobbyTest do
       assert %Ecto.Changeset{} = Lobby.change_move(move)
     end
   end
+
+  describe "chats" do
+    alias Rowgame.Lobby.Chat
+
+    @valid_attrs %{message: "some message", time: "2010-04-17 14:00:00.000000Z"}
+    @update_attrs %{message: "some updated message", time: "2011-05-18 15:01:01.000000Z"}
+    @invalid_attrs %{message: nil, time: nil}
+
+    def chat_fixture(attrs \\ %{}) do
+      {:ok, chat} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Lobby.create_chat()
+
+      chat
+    end
+
+    test "list_chats/0 returns all chats" do
+      chat = chat_fixture()
+      assert Lobby.list_chats() == [chat]
+    end
+
+    test "get_chat!/1 returns the chat with given id" do
+      chat = chat_fixture()
+      assert Lobby.get_chat!(chat.id) == chat
+    end
+
+    test "create_chat/1 with valid data creates a chat" do
+      assert {:ok, %Chat{} = chat} = Lobby.create_chat(@valid_attrs)
+      assert chat.message == "some message"
+      assert chat.time == DateTime.from_naive!(~N[2010-04-17 14:00:00.000000Z], "Etc/UTC")
+    end
+
+    test "create_chat/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Lobby.create_chat(@invalid_attrs)
+    end
+
+    test "update_chat/2 with valid data updates the chat" do
+      chat = chat_fixture()
+      assert {:ok, chat} = Lobby.update_chat(chat, @update_attrs)
+      assert %Chat{} = chat
+      assert chat.message == "some updated message"
+      assert chat.time == DateTime.from_naive!(~N[2011-05-18 15:01:01.000000Z], "Etc/UTC")
+    end
+
+    test "update_chat/2 with invalid data returns error changeset" do
+      chat = chat_fixture()
+      assert {:error, %Ecto.Changeset{}} = Lobby.update_chat(chat, @invalid_attrs)
+      assert chat == Lobby.get_chat!(chat.id)
+    end
+
+    test "delete_chat/1 deletes the chat" do
+      chat = chat_fixture()
+      assert {:ok, %Chat{}} = Lobby.delete_chat(chat)
+      assert_raise Ecto.NoResultsError, fn -> Lobby.get_chat!(chat.id) end
+    end
+
+    test "change_chat/1 returns a chat changeset" do
+      chat = chat_fixture()
+      assert %Ecto.Changeset{} = Lobby.change_chat(chat)
+    end
+  end
 end
