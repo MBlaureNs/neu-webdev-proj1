@@ -19,13 +19,13 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 import socket from "./socket"
-import run_rowgame from "./rowgame";
+import run_demo from "./rowgame";
 
 function start() {
     let root = document.getElementById('root');
     let channel = socket.channel("games:" + window.gameName, {});
     if (root) {
-	run_rowgame(root, channel);
+	run_demo(root, channel);
     }
 }
 
