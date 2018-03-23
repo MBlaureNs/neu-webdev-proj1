@@ -21,9 +21,21 @@ class Demo extends React.Component {
   }
 
   render() {
-    console.log("dlksahfljashfla");
-    return (
-      "asdsf"
-    );
+    var board = [];
+    for (var i = 0; i < board_size; i++) {
+      var row = [];
+      for (var j = 0; j < board_size; j++) {
+	row.push(<Tile x={j} y={i}/>)
+      }
+      var x = (<div className="row">{row}</div>);
+      board.push(x);
+    }
+    return board;
   }
+
+}
+
+function Tile(params) {
+  var div_id = "tile-" + params.x + "-" + params.y; 
+  return (<button id={div_id} className="tile"/>);
 }
