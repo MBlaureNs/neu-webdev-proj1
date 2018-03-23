@@ -21,8 +21,9 @@ class Demo extends React.Component {
   }
 
   render() {
+    console.log("dlksahfljashfla");
     return (
-      asdasf
+      "asdsf"
     );
   }
 }
