@@ -5,7 +5,7 @@ defmodule Rowgame.Lobby.Game do
 
   schema "games" do
     field :board_size, :integer, null: false
-    field :cur_turn, :integer, null: false
+    field :cur_turn, :integer, default: 1, null: false
     field :is_finished, :boolean, default: false, null: false
     field :is_started, :boolean, default: false, null: false
     field :win_length, :integer, null: false
@@ -22,6 +22,6 @@ defmodule Rowgame.Lobby.Game do
   def changeset(game, attrs) do
     game
     |> cast(attrs, [:board_size, :win_length, :cur_turn, :is_started, :is_finished, :host_id, :client_id, :winner_id])
-    |> validate_required([:board_size, :win_length, :cur_turn, :is_started, :is_finished, :host_id, :client_id, :winner_id])
+    |> validate_required([:board_size, :win_length, :cur_turn, :is_started, :is_finished, :host_id])
   end
 end

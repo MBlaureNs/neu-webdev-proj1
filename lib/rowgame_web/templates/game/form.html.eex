@@ -18,21 +18,9 @@
   </div>
 
   <div class="form-group">
-    <%= label f, :cur_turn, class: "control-label" %>
-    <%= number_input f, :cur_turn, class: "form-control" %>
-    <%= error_tag f, :cur_turn %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :is_started, class: "control-label" %>
-    <%= checkbox f, :is_started, class: "checkbox" %>
-    <%= error_tag f, :is_started %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :is_finished, class: "control-label" %>
-    <%= checkbox f, :is_finished, class: "checkbox" %>
-    <%= error_tag f, :is_finished %>
+    <%= label f, :host_id, class: "control-label" %>
+    <br/> <%= @current_user.username %>
+    <%= hidden_input f, :host_id, class: "form-control", value: @current_user.id %>
   </div>
 
   <div class="form-group">
