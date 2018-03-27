@@ -2,35 +2,6 @@
 <script>
   window.gameName = "<%= @game.id %>";
 </script>
-<ul>
-
-  <li>
-    <strong>Board size:</strong>
-    <%= @game.board_size %>
-  </li>
-
-  <li>
-    <strong>Win length:</strong>
-    <%= @game.win_length %>
-  </li>
-
-  <li>
-    <strong>Cur turn:</strong>
-    <%= @game.cur_turn %>
-  </li>
-
-  <li>
-    <strong>Is started:</strong>
-    <%= @game.is_started %>
-  </li>
-
-  <li>
-    <strong>Is finished:</strong>
-    <%= @game.is_finished %>
-  </li>
-
-</ul>
-
 <div id="root">
   Loading
 </div>

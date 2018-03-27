@@ -9,10 +9,17 @@
 
     <title>Hello Rowgame!</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
-    <script>
-      window.current_user_id = <%= @current_user.id %>;
-      window.current_user_name = "<%= @current_user.username %>";
-    </script>
+    <%= if @current_user do %>
+      <script>
+       window.current_user_id = <%= @current_user.id %>;
+       window.current_user_name = "<%= @current_user.username %>";
+      </script>
+    <% else %>
+      <script>
+       window.current_user_id = -1;
+       window.current_user_name = "None";
+      </script>
+    <% end %>
   </head>
 
   <body>
@@ -21,18 +28,19 @@
       <!-- http://www.ccs.neu.edu/home/ntuck/courses/2018/01/cs4550/notes/12-microblog/notes.html -->
       <div class="row">
 	<%= if @current_user do %>
-	<div class="col-5 offset-7">
-	  <p>
-	    Logged in as: <%= @current_user.username %> |
-	    <%= link "Your Profile", to: user_path(@conn, :show, @current_user) %> |
-	    <%= link "Show Games", to: game_path(@conn, :index) %> |
-	    <%= link "Log Out", to: "/session", method: :delete %>
-	  </p>
-	</div>
+	  <div class="col-5 offset-7">
+	    <p>
+	      Logged in as: <%= @current_user.username %> |
+	      <%= link "Your Profile", to: user_path(@conn, :show, @current_user) %> |
+	      <%= link "Show Games", to: game_path(@conn, :index) %> |
+	      <%= link "Log Out", to: "/session", method: :delete %>
+	    </p>
+	  </div>
 	<% else %>
-	<div class="col-2 offset-10">
-	  <p>Not logged in.</p>
-	</div>
+	  <div class="col-2 offset-10">
+	    Not logged in. |
+	    <%= link "Log In", to: page_path(@conn, :index) %>
+	  </div>
 	<% end %>
       </div>
 
