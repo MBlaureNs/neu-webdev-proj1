@@ -9,6 +9,10 @@
 
     <title>Hello Rowgame!</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <script>
+      window.current_user_id = <%= @current_user.id %>;
+      window.current_user_name = "<%= @current_user.username %>";
+    </script>
   </head>
 
   <body>

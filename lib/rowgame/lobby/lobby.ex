@@ -37,6 +37,15 @@ defmodule Rowgame.Lobby do
   """
   def get_game!(id), do: Repo.get!(Game, id)
 
+  def get_game(id) do
+    Repo.get(Game, id)
+    |> Repo.preload(:host)
+    |> Repo.preload(:client)
+    |> Repo.preload(:winner)
+    |> Repo.preload(:move)
+    |> Repo.preload(:chat)
+  end
+
   @doc """
   Creates a game.
 

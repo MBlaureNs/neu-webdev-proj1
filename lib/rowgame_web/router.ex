@@ -27,11 +27,13 @@ defmodule RowgameWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/game/:game", PageController, :game
     resources "/users", UserController
     resources "/games", GameController
 
     post "/session", SessionController, :create
     delete "/session", SessionController, :delete
+
   end
 
   scope "/api/v1", RowgameWeb do

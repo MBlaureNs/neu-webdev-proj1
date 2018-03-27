@@ -1,5 +1,7 @@
-<h2>Show Game</h2>
-
+<h2>Game: <%= @game.id %></h2>
+<script>
+  window.gameName = "<%= @game.id %>";
+</script>
 <ul>
 
   <li>
@@ -34,7 +36,3 @@
 </div>
 
 <span><%= link "Back", to: game_path(@conn, :index) %></span>
-
-<script>
-  var board_size = <%= @game.board_size %>;
-</script>
