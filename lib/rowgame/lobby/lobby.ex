@@ -126,6 +126,13 @@ defmodule Rowgame.Lobby do
     Repo.all(Move)
   end
 
+  def list_moves_from_game(id) do
+    query = from m in "moves",
+      where: m.game_id == ^id,
+      select: {m.x_pos, m.y_pos, m.turn}
+    Repo.all(query)
+  end
+  
   @doc """
   Gets a single move.
 

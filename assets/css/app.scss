@@ -3,8 +3,23 @@
 @import "bootstrap";
 
 .tile {
-  border: 1px solid black;
+  border: 1px solid grey;
   height: 40px;
   width: 40px;
   float: left;
+  text-align: center;
+  font-size: 25px;
+}
+
+.tile-white {
+  background-color: white;
+}
+
+.tile-black {
+  background-color: black;
+  color: white;
+}
+
+.tile-empty {
+  background-color: #aaaaee;
 }

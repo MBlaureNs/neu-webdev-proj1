@@ -10,9 +10,9 @@ defmodule RowgameWeb.GamesChannel do
     end
   end
 
-  def handle_in("click", %{"x" => x, "y" => y}, socket) do
+  def handle_in("click", %{"x" => x, "y" => y, "turn" => turn}, socket) do
     gid = socket.topic |> String.split(":") |> Enum.at(1);
-    game = Game.click(gid, x, y)
+    game = Game.click(gid, x, y, turn)
     RowgameWeb.Endpoint.broadcast(socket.topic, "update", game)
     {:reply, {:ok, game}, socket}
   end
