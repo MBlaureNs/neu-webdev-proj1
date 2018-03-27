@@ -127,9 +127,9 @@ defmodule Rowgame.Lobby do
   end
 
   def list_moves_from_game(id) do
-    query = from m in "moves",
-      where: m.game_id == ^id,
-      select: {m.x_pos, m.y_pos, m.turn}
+    query = from "moves",
+      where: [game_id: ^id],
+      select: [:x_pos, :y_pos, :turn]
     Repo.all(query)
   end
   

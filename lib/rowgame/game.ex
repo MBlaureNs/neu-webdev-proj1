@@ -23,6 +23,7 @@ defmodule Rowgame.Game do
   
   def client_view(game_id) do
     game = Lobby.get_game(game_id)
+    IO.inspect(game)
     %{
       "game_id" => game_id,
       "host_id" => game.host_id,
@@ -61,8 +62,56 @@ defmodule Rowgame.Game do
 	  "game_id" => game_id})
     {game_id, _} = game_id |> Integer.parse
     moves = Lobby.list_moves_from_game(game_id)
-    IO.inspect(moves)
+    if is_winner(moves, x, y, turn, game.win_length) do
+      IO.inspect("WINNER")
+      if rem(turn,2) == 1 do
+	Lobby.update_game(game, %{"winner_id" => game.host_id})
+	IO.inspect("HOST")
+      else
+	Lobby.update_game(game, %{"winner_id" => game.client_id})
+	IO.inspect("CLIENT")
+      end
+      Lobby.update_game(game, %{"is_finished" => true})
+    end
     Lobby.update_game(game, %{"cur_turn" => game.cur_turn + 1})
     client_view(game_id)
+  end
+
+  def move_matches_color(moves, x, y, turn) do
+    r = moves
+    |> Enum.find(fn(mv) ->
+      (mv.x_pos == x) and
+      (mv.y_pos == y) and
+      (rem(mv.turn, 2) == rem(turn,2))
+    end)
+    |> is_nil
+    not r
+  end
+
+  def is_winner(moves, x, y, turn, win_length) do
+    bi_run_length(moves, x, y,  1, 0, turn) >= win_length or
+    bi_run_length(moves, x, y,  1, 1, turn) >= win_length or
+    bi_run_length(moves, x, y,  0, 1, turn) >= win_length or
+    bi_run_length(moves, x, y, -1, 1, turn) >= win_length 
+  end
+  
+  def bi_run_length(moves, x, y , dx, dy, turn) do
+    r = 1 + uni_run_length(moves, x, y, dx, dy, turn) + uni_run_length(moves, x, y, -dx, -dy, turn)
+    r
+  end
+  
+  def uni_run_length(moves, x, y, dx, dy, turn) do
+    r = moves
+    |> Enum.find(fn(mv) ->
+      (mv.x_pos == x+dx) and
+      (mv.y_pos == y+dy) and
+      (rem(mv.turn, 2) == rem(turn,2))
+    end)
+    |> is_nil
+    if r do
+      0
+    else
+      1 + uni_run_length(moves, x+dx, y+dy, dx, dy, turn)
+    end
   end
 end
