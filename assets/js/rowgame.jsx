@@ -174,12 +174,20 @@ function StatusBar(params) {
 	  Winner: {p.host_name}
 	</div>
       );
-    } else { //p.winner_id == p.client_id, client won
+    } else if (p.winner_id == p.client_id) { //client won
       return (
 	<div id="status-bar" className="row">
 	  Game over<br/>
 	  {p.host_name} (B) vs. {p.client_name} (W)<br/>
 	  Winner: {p.client_name}
+	</div>
+      );
+    } else { //draw
+      return (
+	<div id="status-bar" className="row">
+	  Game over<br/>
+	  {p.host_name} (B) vs. {p.client_name} (W)<br/>
+	  Draw - No winner
 	</div>
       );
     }

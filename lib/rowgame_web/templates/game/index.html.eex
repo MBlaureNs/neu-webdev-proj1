@@ -3,31 +3,50 @@
 <table class="table">
   <thead>
     <tr>
+      <th>ID</th>
+      <th>Host</th>
+      <th>Client</th>
+      <th>Status</th>
       <th>Board size</th>
       <th>Win length</th>
-      <th>Cur turn</th>
-      <th>Is started</th>
-      <th>Is finished</th>
 
       <th></th>
     </tr>
   </thead>
   <tbody>
-<%= for game <- @games do %>
-    <tr>
-      <td><%= game.board_size %></td>
-      <td><%= game.win_length %></td>
-      <td><%= game.cur_turn %></td>
-      <td><%= game.is_started %></td>
-      <td><%= game.is_finished %></td>
-
-      <td class="text-right">
-        <span><%= link "Show", to: game_path(@conn, :show, game), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Edit", to: game_path(@conn, :edit, game), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Delete", to: game_path(@conn, :delete, game), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
-      </td>
-    </tr>
-<% end %>
+    <%= for game <- @games do %>
+      <tr>
+        <td><%= game.id %></td>
+        <td><%= game.host.username %></td>
+	<%= if game.client do %>
+          <td><%= game.client.username %></td>
+	<% else %>
+	  <td>None</td>
+	<% end %>
+	<%= if game.is_finished do %>
+	  <%= if game.winner do %>
+	    <td>Winner: <%= game.winner.username %></td>
+	  <% else %>
+	    <td>Draw - No winner</td>
+	  <% end %>
+	<% else %>
+	  <%= if game.is_started do %>
+	    <td>In-progress</td>
+	  <% else %>
+	    <%= if game.client do %>
+	      <td>Not started yet</td>
+	    <% else %>
+	      <td>Waiting for client...</td>
+	     <% end %>
+          <% end %>
+        <% end %>
+        <td><%= game.board_size %></td>
+        <td><%= game.win_length %></td>
+        <td class="text-right">
+          <span><%= link "Show", to: game_path(@conn, :show, game), class: "btn btn-primary btn-xs" %></span>
+        </td>
+      </tr>
+    <% end %>
   </tbody>
 </table>
 

@@ -19,6 +19,9 @@ defmodule Rowgame.Lobby do
   """
   def list_games do
     Repo.all(Game)
+    |> Repo.preload(:host)
+    |> Repo.preload(:client)
+    |> Repo.preload(:winner)
   end
 
   @doc """

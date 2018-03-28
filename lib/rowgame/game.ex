@@ -23,7 +23,6 @@ defmodule Rowgame.Game do
   
   def client_view(game_id) do
     game = Lobby.get_game(game_id)
-    IO.inspect(game)
     %{
       "game_id" => game_id,
       "host_id" => game.host_id,
@@ -63,14 +62,14 @@ defmodule Rowgame.Game do
     {game_id, _} = game_id |> Integer.parse
     moves = Lobby.list_moves_from_game(game_id)
     if is_winner(moves, x, y, turn, game.win_length) do
-      IO.inspect("WINNER")
       if rem(turn,2) == 1 do
 	Lobby.update_game(game, %{"winner_id" => game.host_id})
-	IO.inspect("HOST")
       else
 	Lobby.update_game(game, %{"winner_id" => game.client_id})
-	IO.inspect("CLIENT")
       end
+      Lobby.update_game(game, %{"is_finished" => true})
+    end
+    if length(moves) == game.board_size*game.board_size do
       Lobby.update_game(game, %{"is_finished" => true})
     end
     Lobby.update_game(game, %{"cur_turn" => game.cur_turn + 1})
